@@ -1,22 +1,22 @@
 package com.example.sweater.domain;
 
-import org.springframework.web.bind.annotation.Mapping;
-
 import javax.persistence.*;
-import javax.swing.*;
 
 @Entity
 public class Message {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     private String text;
     private String tag;
 
-    @ManyToOne(fetch = FetchType.EAGER) //Указываем базе данных, что в этой связи одному пользователю соотв. множество сообщений
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
+
+    public Message() {
+    }
 
     public Message(String text, String tag, User user) {
         this.author = user;
@@ -24,11 +24,8 @@ public class Message {
         this.tag = tag;
     }
 
-    public String getAuthorName(){
+    public String getAuthorName() {
         return author != null ? author.getUsername() : "<none>";
-    }
-
-    public Message() {
     }
 
     public User getAuthor() {
@@ -39,12 +36,20 @@ public class Message {
         this.author = author;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTag() {
